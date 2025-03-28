@@ -1,0 +1,275 @@
+@extends('layout.app')
+
+@section('title')
+    Accueil
+@endsection
+
+@section('content')
+    <!-- Hero Section avec Code Typing -->
+    <section class="pt-32 pb-16 px-4 bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="text-left">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+                        Bienvenue sur <span
+                            class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">MJ
+                            Stack</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                        Explorez le monde du développement web à travers mes articles et tutoriels.
+                    </p>
+                    <div class="relative max-w-xl">
+                        <livewire:search-posts />
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="bg-gray-900 dark:bg-gray-800 rounded-lg shadow-xl p-4 font-mono text-sm">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <div class="text-gray-100">
+                            <span id="typing-text"></span>
+                            <span class="typing-cursor animate-pulse">|</span>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute -z-10 top-10 right-10 w-full h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg transform rotate-3">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Articles -->
+    <section class="container mx-auto px-4 py-12">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Derniers Articles</h2>
+            <a href="#" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 flex items-center gap-2">
+                Voir tous les articles
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            @foreach($posts as $post)
+                <article
+                    class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg card-scale border border-gray-100 dark:border-gray-700">
+                    @if($post->featured_image)
+                        <div class="relative h-56">
+                            <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
+                                class="w-full h-full object-cover">
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">
+                                    {{ $post->published_at->format('d M Y') }}
+                                </span>
+                            </div>
+                        </div>
+                    @endif
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 mb-4">
+                            @foreach($post->tags as $tag)
+                                <span
+                                    class="text-sm px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
+                                    {{ $tag->name }}
+                                </span>
+                            @endforeach
+                        </div>
+                        <h2 class="text-xl font-bold mb-3 text-gray-900 dark:text-white">{{ $post->title }}</h2>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">{{ $post->excerpt }}</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+                            <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
+                                <span><i class="far fa-comment mr-1"></i> {{ $post->comments->count() }}</span>
+                                <span><i class="far fa-eye mr-1"></i> {{ $post->getViewsCount() }}</span>
+                            </div>
+                            <a href="{{ route('blog.show', $post) }}"
+                                class="inline-flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
+                                <span>Lire la suite</span>
+                                <i class="fas fa-arrow-right text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            @endforeach
+        </div>
+    </section>
+
+    <!-- Latest YouTube Video -->
+    <section class="bg-gray-50 dark:bg-gray-800/50 py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Ma Dernière Vidéo</h2>
+                <div class="relative pb-[56.25%] h-0 rounded-2xl overflow-hidden shadow-xl">
+                    <iframe 
+                        class="absolute top-0 left-0 w-full h-full"
+                        src="https://www.youtube.com/embed/u8fa5soossI"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="text-center mt-6">
+                    <a href="https://youtube.com/@VOTRE_CHAINE" target="_blank" 
+                        class="inline-flex items-center gap-2 text-red-600 hover:text-red-700">
+                        <i class="fab fa-youtube text-2xl"></i>
+                        <span>Rejoignez-moi sur YouTube</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="container mx-auto px-4 py-16">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8">Projets en Vedette</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center gap-4 mb-4">
+                    <i class="fas fa-code text-3xl text-blue-600 dark:text-blue-400"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Projet Open Source</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Description du projet</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 rounded-full text-sm bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">Laravel</span>
+                    <span class="px-3 py-1 rounded-full text-sm bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">Vue.js</span>
+                </div>
+            </div>
+            <!-- Ajoutez d'autres projets similaires -->
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="bg-gradient-to-r from-blue-600 to-purple-600 py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Prêt à Commencer?</h2>
+            <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+                Découvrez mes ressources gratuites pour développeurs et rejoignez une communauté passionnée.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#" 
+                    class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-full font-semibold transition-colors">
+                    Explorer les Articles
+                </a>
+                <a href="#" 
+                    class="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-3 rounded-full font-semibold transition-colors">
+                    Rejoindre la Communauté
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Les sections commentées restent en place -->
+    {{-- <section class="container mx-auto px-4 py-12">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8">Catégories Populaires</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="#"
+                class="group bg-gradient-to-br from-blue-500 to-purple-600 p-6 rounded-xl text-center text-white hover:shadow-lg transition-all">
+                <i class="fas fa-code text-3xl mb-3"></i>
+                <h3 class="font-semibold">Développement</h3>
+            </a>
+            <a href="#"
+                class="group bg-gradient-to-br from-green-500 to-teal-600 p-6 rounded-xl text-center text-white hover:shadow-lg transition-all">
+                <i class="fas fa-mobile-alt text-3xl mb-3"></i>
+                <h3 class="font-semibold">Mobile</h3>
+            </a>
+            <a href="#"
+                class="group bg-gradient-to-br from-red-500 to-pink-600 p-6 rounded-xl text-center text-white hover:shadow-lg transition-all">
+                <i class="fas fa-video text-3xl mb-3"></i>
+                <h3 class="font-semibold">Tutoriels</h3>
+            </a>
+            <a href="#"
+                class="group bg-gradient-to-br from-yellow-500 to-orange-600 p-6 rounded-xl text-center text-white hover:shadow-lg transition-all">
+                <i class="fas fa-lightbulb text-3xl mb-3"></i>
+                <h3 class="font-semibold">Astuces</h3>
+            </a>
+        </div>
+    </section> --}}
+
+    
+    {{-- <section class="bg-blue-50 dark:bg-gray-800/50 py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Restez informé</h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-8">Abonnez-vous à ma newsletter pour recevoir mes derniers
+                    articles et tutoriels.</p>
+                <form class="flex flex-col md:flex-row gap-4 justify-center">
+                    <input type="email" placeholder="Votre email" class="px-6 py-3 rounded-full md:w-96">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-colors">
+                        S'abonner
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="py-16 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-800/50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">100+</div>
+                    <div class="text-gray-600 dark:text-gray-300">Articles</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">50K+</div>
+                    <div class="text-gray-600 dark:text-gray-300">Lecteurs</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">200+</div>
+                    <div class="text-gray-600 dark:text-gray-300">Commentaires</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">1K+</div>
+                    <div class="text-gray-600 dark:text-gray-300">Abonnés</div>
+                </div>
+            </div>
+        </div>
+    </section> --}}
+
+@endsection
+
+@section('partial-js')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const text = `const developer = {
+                name: 'MJ Stack',
+                skills: ['Laravel', 'Vue.js', 'TailwindCSS'],
+                passion: 'Partager mes connaissances',
+                mission: () => {
+                    return 'Créer du contenu utile et inspirant';
+                }
+            };`;
+
+            const typingElement = document.getElementById('typing-text');
+            let index = 0;
+
+            function colorizeCode(code) {
+                const formattedCode = code.replace(/\n/g, '<br>')
+                    .replace(/ {4}/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+
+                return formattedCode
+                    .replace(/const/g, '<span class="text-blue-400">const</span>')
+                    .replace(/developer/g, '<span class="text-green-400">developer</span>')
+                    .replace(/return/g, '<span class="text-purple-400">return</span>')
+                    .replace(/'([^']+)'/g, '<span class="text-yellow-300">\'$1\'</span>');
+            }
+
+            function typeText() {
+                if (index < text.length) {
+                    const currentText = text.slice(0, index + 1);
+                    typingElement.innerHTML = colorizeCode(currentText);
+                    index++;
+                    setTimeout(typeText, 50);
+                }
+            }
+
+            typeText();
+        });
+    </script>
+@endsection

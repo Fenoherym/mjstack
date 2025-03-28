@@ -1,0 +1,30 @@
+/* Modal backdrop fix */
+.fi-modal-window::before {
+    --tw-bg-opacity: 0.5 !important;
+}
+
+/* Search dropdown fixes */
+.fi-dropdown-panel {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
+}
+
+.dark .fi-dropdown-panel {
+    background-color: rgb(31 41 55 / var(--tw-bg-opacity)) !important;
+}
+
+/* Select dropdown fixes */
+.choices__list--dropdown {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
+    z-index: 99999 !important;
+}
+
+.dark .choices__list--dropdown {
+    background-color: rgb(31 41 55 / var(--tw-bg-opacity)) !important;
+}
+
+/* Ensure dropdowns are always visible */
+.fi-modal-window {
+    z-index: 99998 !important;
+}

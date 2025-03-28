@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.card-scale { transition: all 0.3s ease; }
+.card-scale:hover { transform: scale(1.02); }
+.theme-toggle { transition: all 0.3s ease; }
