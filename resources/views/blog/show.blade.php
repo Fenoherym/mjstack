@@ -49,24 +49,22 @@
 
             <!-- Title -->
             <h1 class="text-4xl font-bold mb-6 text-gray-900 dark:text-white">{{ $article->title }}</h1>
-            <div class="container mx-auto px-4">
-                <div class="max-w-4xl mx-auto">
-                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Ma Dernière Vidéo</h2>
-                    <div class="relative pb-[56.25%] h-0 rounded-2xl overflow-hidden shadow-xl">
-                        <iframe 
-                            class="absolute top-0 left-0 w-full h-full"
-                            src="{{ $article->video->url }}"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
-                    </div>                    
-                </div>
-            </div>
+            
+            <x-video-frame url="{{ $article->video->url }}" title="{{ $article->video->title }}"> </x-video-frame>
         </section>    
-        <
+        
             <!-- Content -->
-            <div class="prose dark:prose-invert max-w-none mb-12">
+            <div class="prose dark:prose-invert max-w-none mb-12" x-data x-init="
+                document.querySelectorAll('.prose img').forEach(img => {
+                    img.classList.add('mx-auto', 'rounded-lg', 'shadow-lg');
+                    img.style.maxWidth = '768px';
+                    img.style.width = '100%';
+                    img.style.height = 'auto';
+                    img.style.display = 'block';
+                    img.removeAttribute('width');
+                    img.removeAttribute('height');
+                })
+            ">
                 {!! $article->content !!}
             </div>
 
@@ -99,4 +97,25 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('meta')
+    <meta name="description" content="{{ Str::limit(strip_tags($article->excerpt), 160) }}">
+    <meta name="author" content="MJ Stack">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ $article->title }}">
+    <meta property="og:description" content="{{ Str::limit(strip_tags($article->excerpt), 160) }}">
+    @if($article->featured_image)
+    <meta property="og:image" content="{{ asset('storage/' . $article->featured_image) }}">
+    @endif
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $article->title }}">
+    <meta name="twitter:description" content="{{ Str::limit(strip_tags($article->excerpt), 160) }}">
+    @if($article->featured_image)
+    <meta name="twitter:image" content="{{ asset('storage/' . $article->featured_image) }}">
+    @endif
 @endsection

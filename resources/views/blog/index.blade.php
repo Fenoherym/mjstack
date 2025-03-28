@@ -4,6 +4,11 @@
     Blog - Tous les Articles
 @endsection
 
+@section('meta')
+    <meta name="description" content="Découvrez les derniers articles et tutoriels sur le développement web, Laravel, Vue.js, React et plus encore.">
+    <meta name="author" content="MJ Stack">
+@endsection
+
 @section('content')
     <!-- Hero Section -->
     <section class="pt-32 pb-16 px-4 bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900">

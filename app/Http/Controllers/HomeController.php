@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,6 +16,9 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
-        return view('welcome', compact('posts'));
+        return view('welcome', [
+            "posts" => $posts,
+            "last_video" => Video::orderBy("created_at","desc")->first(),
+        ]);
     }
 }

@@ -2,17 +2,17 @@
     <div class="container mx-auto px-4 py-8">
         <div class="flex flex-col md:flex-row justify-between items-center">
             <div class="text-gray-600 dark:text-gray-400 mb-4 md:mb-0">
-                © 2025 MonBlog. Tous droits réservés.
+                © {{ date('Y') }} MJ Stack. Tous droits réservés.
             </div>
             <div class="flex space-x-6">
-                <a href="#" class="text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500 transition-colors">
+                <a href="https://youtube.com/@mjstack" target="_blank" class="text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500 transition-colors">
                     <i class="fab fa-youtube text-2xl"></i>
                 </a>
-                <a href="#" class="text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500 transition-colors">
-                    <i class="fab fa-twitter text-2xl"></i>
+                <a href="https://github.com/Fenoherym" target="_blank" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white transition-colors">
+                    <i class="fab fa-github text-2xl"></i>
                 </a>
-                <a href="#" class="text-gray-500 hover:text-purple-500 dark:text-gray-400 dark:hover:text-purple-500 transition-colors">
-                    <i class="fab fa-instagram text-2xl"></i>
+                <a href="https://www.linkedin.com/in/fenohery-rakotoniaina-b20193334/" target="_blank" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">
+                    <i class="fab fa-linkedin text-2xl"></i>
                 </a>
             </div>
         </div>

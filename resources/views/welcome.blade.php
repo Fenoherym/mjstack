@@ -11,9 +11,7 @@
             <div class="grid md:grid-cols-2 gap-8 items-center">
                 <div class="text-left">
                     <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-                        Bienvenue sur <span
-                            class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">MJ
-                            Stack</span>
+                        Code, Apprends, <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Partage</span>
                     </h1>
                     <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
                         Explorez le monde du développement web à travers mes articles et tutoriels.
@@ -48,12 +46,12 @@
     <section class="container mx-auto px-4 py-12">
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Derniers Articles</h2>
-            <a href="#" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 flex items-center gap-2">
+            <a href="{{ route('blog.index')}}" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 flex items-center gap-2">
                 Voir tous les articles
                 <i class="fas fa-arrow-right"></i>
             </a>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach($posts as $post)
                 <article
@@ -98,67 +96,35 @@
     </section>
 
     <!-- Latest YouTube Video -->
-    <section class="bg-gray-50 dark:bg-gray-800/50 py-16">
+    <x-video-frame url="{{ $last_video->url }}" title="Ma dernière vidéo"> </x-video-frame>
+    
+    <!-- Tech Stack & Tools -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-800/50">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Ma Dernière Vidéo</h2>
-                <div class="relative pb-[56.25%] h-0 rounded-2xl overflow-hidden shadow-xl">
-                    <iframe 
-                        class="absolute top-0 left-0 w-full h-full"
-                        src="https://www.youtube.com/embed/u8fa5soossI"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                <div class="text-center mt-6">
-                    <a href="https://youtube.com/@VOTRE_CHAINE" target="_blank" 
-                        class="inline-flex items-center gap-2 text-red-600 hover:text-red-700">
-                        <i class="fab fa-youtube text-2xl"></i>
-                        <span>Rejoignez-moi sur YouTube</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Projects -->
-    <section class="container mx-auto px-4 py-16">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8">Projets en Vedette</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-                <div class="flex items-center gap-4 mb-4">
-                    <i class="fas fa-code text-3xl text-blue-600 dark:text-blue-400"></i>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Projet Open Source</h3>
-                        <p class="text-gray-600 dark:text-gray-300">Description du projet</p>
-                    </div>
-                </div>
-                <div class="flex gap-2">
-                    <span class="px-3 py-1 rounded-full text-sm bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">Laravel</span>
-                    <span class="px-3 py-1 rounded-full text-sm bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">Vue.js</span>
-                </div>
-            </div>
-            <!-- Ajoutez d'autres projets similaires -->
-        </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section class="bg-gradient-to-r from-blue-600 to-purple-600 py-16">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Prêt à Commencer?</h2>
-            <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-                Découvrez mes ressources gratuites pour développeurs et rejoignez une communauté passionnée.
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Technologies & Outils</h2>
+            <p class="text-center text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">
+                Voici les technologies et outils que j'utilise quotidiennement et que je recommande
             </p>
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="#" 
-                    class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-full font-semibold transition-colors">
-                    Explorer les Articles
-                </a>
-                <a href="#" 
-                    class="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-3 rounded-full font-semibold transition-colors">
-                    Rejoindre la Communauté
-                </a>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
+                    <i class="fab fa-laravel text-5xl text-red-500 mb-4"></i>
+                    <h3 class="font-semibold text-gray-900 dark:text-white">Laravel</h3>
+                </div>
+                <div class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
+                    <i class="fab fa-vuejs text-5xl text-green-500 mb-4"></i>
+                    <h3 class="font-semibold text-gray-900 dark:text-white">Vue.js</h3>
+                </div>
+                <div class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
+                    <i class="fab fa-react text-5xl text-blue-400 mb-4"></i>
+                    <h3 class="font-semibold text-gray-900 dark:text-white">React</h3>
+                </div>
+                <div class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
+                    <svg class="w-12 h-12 mb-4 text-sky-500" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12 6.036c-2.667 0-4.333 1.325-5 3.976 1-1.325 2.167-1.822 3.5-1.491.761.189 1.305.738 1.91 1.345 0.98.979 2.112 2.114 4.59 2.114 2.667 0 4.333-1.325 5-3.976-1 1.325-2.166 1.822-3.5 1.491-.761-.189-1.305-.738-1.91-1.345-.98-.979-2.112-2.114-4.59-2.114zM7 12.036c-2.667 0-4.333 1.325-5 3.976 1-1.326 2.167-1.822 3.5-1.491.761.189 1.305.738 1.91 1.345.98.979 2.112 2.114 4.59 2.114 2.667 0 4.333-1.325 5-3.976-1 1.325-2.166 1.822-3.5 1.491-.761-.189-1.305-.738-1.91-1.345-.98-.979-2.112-2.114-4.59-2.114z"/>
+                    </svg>
+                    <h3 class="font-semibold text-gray-900 dark:text-white">Tailwind CSS</h3>
+                </div>
+            </div>                
             </div>
         </div>
     </section>
@@ -190,7 +156,7 @@
         </div>
     </section> --}}
 
-    
+
     {{-- <section class="bg-blue-50 dark:bg-gray-800/50 py-16">
         <div class="container mx-auto px-4">
             <div class="max-w-3xl mx-auto text-center">
@@ -207,7 +173,7 @@
         </div>
     </section>
 
-    
+
     <section class="py-16 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-800/50">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -238,13 +204,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const text = `const developer = {
-                name: 'MJ Stack',
-                skills: ['Laravel', 'Vue.js', 'TailwindCSS'],
-                passion: 'Partager mes connaissances',
-                mission: () => {
-                    return 'Créer du contenu utile et inspirant';
-                }
-            };`;
+                    name: 'MJ Stack',
+                    skills: ['Laravel', 'Vue.js', 'TailwindCSS'],
+                    passion: 'Partager mes connaissances',
+                    mission: () => {
+                        return 'Créer du contenu utile et inspirant';
+                    }
+                };`;
 
             const typingElement = document.getElementById('typing-text');
             let index = 0;
@@ -272,4 +238,10 @@
             typeText();
         });
     </script>
+@endsection
+
+@section('meta')
+    <meta name="description" content="MJ Stack - Blog technique et tutoriels sur le développement web, Laravel, Vue.js, React et Tailwind CSS">
+    <meta name="author" content="MJ Stack">
+    <meta name="keywords" content="Laravel, Vue.js, React, Tailwind CSS, développement web, tutoriels">
 @endsection
