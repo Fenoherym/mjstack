@@ -15,7 +15,7 @@ class CommentForm extends Component
     protected $rules = [
         'author_name' => 'required|min:3',
         'author_email' => 'required|email',
-        'content' => 'required|min:10',
+        'content' => 'required|min:5',
     ];
 
     protected $messages = [
@@ -24,7 +24,7 @@ class CommentForm extends Component
         'author_email.required' => 'L\'email est requis',
         'author_email.email' => 'L\'email doit être valide',
         'content.required' => 'Le commentaire est requis',
-        'content.min' => 'Le commentaire doit contenir au moins 10 caractères',
+        'content.min' => 'Le commentaire doit contenir au moins 5 caractères',
     ];
     
     public function mount($postId)
