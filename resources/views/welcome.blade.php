@@ -129,7 +129,7 @@
         </div>
     </section>
 
-    <!-- Les sections commentées restent en place -->
+    
     {{-- <section class="container mx-auto px-4 py-12">
         <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8">Catégories Populaires</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -201,7 +201,7 @@
 
 @section('partial-js')
 
-@vite(['resources/js/codewritter.js']);
+@vite(['resources/js/codewritter.js'])
    
 @endsection
 

@@ -12,3 +12,11 @@ code, pre, .font-mono {
 .card-scale { transition: all 0.3s ease; }
 .card-scale:hover { transform: scale(1.02); }
 .theme-toggle { transition: all 0.3s ease; }
+
+pre, code {
+    background: #1e1e1e !important; /* Fond noir intense */
+    color: #f8f8f2 !important; /* Texte clair */
+    border-radius: 5px;
+    padding: 10px;
+    overflow-x: auto;
+}

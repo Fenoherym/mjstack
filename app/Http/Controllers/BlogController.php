@@ -10,14 +10,7 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $posts = Article::with(['tags', 'comments', 'views'])
-            ->where('is_published', true)
-            ->latest('published_at')
-            ->paginate(12);
-
-        $tags = Tag::all();
-
-        return view('blog.index', compact('posts', 'tags'));
+        return view('blog.index');
     }
 
     public function show(Article $article)

@@ -5,22 +5,22 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
     document.body.classList.remove('dark')
 }
 document.addEventListener("DOMContentLoaded", function() {
+    // Sélectionner tous les éléments <pre> et ajouter un élément <code> si nécessaire
     document.querySelectorAll("pre").forEach(pre => {
         if (!pre.querySelector("code")) { 
             const code = document.createElement("code");
             code.innerHTML = pre.innerHTML.trim(); 
-            code.classList.add("language-php"); // Ajoute la classe pour Prism.js ou Highlight.js
             pre.innerHTML = "";
             pre.appendChild(code);
         }
     });
 
-    // Réactive la coloration selon la bibliothèque utilisée
-    if (window.Prism) {
-        Prism.highlightAll();
+    // Applique la coloration du code via Highlight.js
+    if (window.hljs) {
+        hljs.highlightAll(); // Applique la coloration sur tous les blocs <code>
     }   
-    
 });
+
 
 // Check if theme exists in localStorage or use system preference
 const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');

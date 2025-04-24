@@ -10,6 +10,10 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use FilamentTiptapEditor\TiptapEditor;
+use Rawilk\FilamentQuill\Filament\Forms\Components\QuillEditor;
+use Rawilk\FilamentQuill\Enums\ToolbarButton;
+
 
 class ArticleResource extends Resource
 {
@@ -27,14 +31,44 @@ class ArticleResource extends Resource
                                 Forms\Components\TextInput::make('title')
                                     ->required()
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (string $state, Forms\Set $set) => 
-                                        $set('slug', Str::slug($state))),
+                                    ->afterStateUpdated(fn(string $state, Forms\Set $set) =>
+                                    $set('slug', Str::slug($state))),                               
                                 Forms\Components\TextInput::make('slug')
                                     ->required()
                                     ->unique(ignoreRecord: true),
-                                Forms\Components\RichEditor::make('content')
-                                    ->required()
-                                    ->columnSpanFull(),
+                                QuillEditor::make('content')
+                                    ->toolbarButtons([
+                                        ToolbarButton::Font,
+                                        ToolbarButton::Size,
+                                        ToolbarButton::Bold,
+                                        ToolbarButton::Italic,
+                                        ToolbarButton::Underline,
+                                        ToolbarButton::Strike,
+                                        ToolbarButton::BlockQuote,
+                                        ToolbarButton::OrderedList,
+                                        ToolbarButton::UnorderedList,
+                                        ToolbarButton::Indent,
+                                        ToolbarButton::Link,
+                                        ToolbarButton::Image,
+                                        ToolbarButton::UnorderedList,
+                                        ToolbarButton::TextAlign,
+                                        ToolbarButton::TextColor,
+                                        ToolbarButton::BackgroundColor,
+                                        ToolbarButton::Undo,
+                                        ToolbarButton::Redo,
+                                        ToolbarButton::ClearFormat,
+                                        ToolbarButton::CodeBlock,
+                                        ToolbarButton::Header,
+                                        
+                                    ])
+                                    ->fileAttachmentsDisk('public')
+                                    ->fileAttachmentsDirectory('public_html/blog-content-images')
+                                    ->fileAttachmentsVisibility('public')
+                                    ->saveUploadedFileAttachmentsUsing(function ($file): string {
+                                        $path = $file->storePublicly('public_html/blog-content-images', ['disk' => 'public']);
+                                        return str_replace('public_html/', '', Storage::disk('public')->url($path));
+                                    }),       
+                                 
                                 Forms\Components\Textarea::make('excerpt')
                                     ->rows(3)
                                     ->columnSpanFull(),
@@ -65,21 +99,21 @@ class ArticleResource extends Resource
                                         Forms\Components\TextInput::make('name')
                                             ->required()
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (string $state, Forms\Set $set) => 
-                                                $set('slug', Str::slug($state))),
+                                            ->afterStateUpdated(fn(string $state, Forms\Set $set) =>
+                                            $set('slug', Str::slug($state))),
                                         Forms\Components\TextInput::make('slug')
                                             ->required()
                                             ->unique('tags', 'slug'),
                                     ]),
-                                Forms\Components\Select::make('video')                                    
+                                Forms\Components\Select::make('video')
                                     ->relationship('video', 'title')
                                     ->createOptionForm([
                                         Forms\Components\TextInput::make('title')
-                                        ->required()
-                                        ->unique(ignoreRecord: true),
+                                            ->required()
+                                            ->unique(ignoreRecord: true),
                                         Forms\Components\TextInput::make('url')
-                                        ->required()
-                                        ->unique(ignoreRecord: true),
+                                            ->required()
+                                            ->unique(ignoreRecord: true),
                                     ]),
                             ]),
                     ])

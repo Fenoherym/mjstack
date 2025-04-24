@@ -21,10 +21,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/themes/prism-dracula.min.css" rel="stylesheet">
+    
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"> --}}
+    <!-- Un autre thème pour tester -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script> --}}
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <!-- CSS pour le thème sombre (Monokai par exemple) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css" rel="stylesheet">
+    <!-- JavaScript de Highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+
+    
+    <link rel="stylesheet" href="{{ asset('build/assets/app-gYAIZzpF.css') }}">
+    <script type="module" src="{{ asset('build/assets/app-CM57iF-2.js') }}"></script>
+    <script type="module" src="{{ asset('build/assets/codewritter-B2zPG6mI.js') }}"></script>
+    
+
 
     
 </head>
