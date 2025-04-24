@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/articles', [BlogController::class, 'index'])->name('blog.index');
@@ -60,4 +61,16 @@ Route::get('/create-storage-link', function () {
     }
 
     return 'Le lien existe déjà.';
+});
+
+
+Route::get('/test-upload', function () {
+    $content = file_get_contents(dirname(dirname(__DIR__)) . '/public_html/favicon/favicon.ico');
+
+
+;
+    // Modifie le chemin pour pointer vers public_html
+
+    Storage::disk('images_public_html')->put('test.png', $content);
+    return 'Fichier sauvegardé.';
 });

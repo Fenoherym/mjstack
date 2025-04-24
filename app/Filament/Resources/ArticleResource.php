@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 use FilamentTiptapEditor\TiptapEditor;
 use Rawilk\FilamentQuill\Filament\Forms\Components\QuillEditor;
 use Rawilk\FilamentQuill\Enums\ToolbarButton;
+use Illuminate\Support\Facades\Storage;
 
 
 class ArticleResource extends Resource
@@ -61,13 +62,12 @@ class ArticleResource extends Resource
                                         ToolbarButton::Header,
                                         
                                     ])
-                                    ->fileAttachmentsDisk('public')
-                                    ->fileAttachmentsDirectory('public_html/blog-content-images')
-                                    ->fileAttachmentsVisibility('public')
-                                    ->saveUploadedFileAttachmentsUsing(function ($file): string {
-                                        $path = $file->storePublicly('public_html/blog-content-images', ['disk' => 'public']);
-                                        return str_replace('public_html/', '', Storage::disk('public')->url($path));
-                                    }),       
+                                    ->fileAttachmentsDisk('images_public_html')
+                                    ->fileAttachmentsDirectory('')
+                                    ->fileAttachmentsVisibility('public'),
+                                   
+                                   
+        
                                  
                                 Forms\Components\Textarea::make('excerpt')
                                     ->rows(3)

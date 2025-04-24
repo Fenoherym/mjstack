@@ -59,6 +59,12 @@ return [
             'throw' => false,
             'report' => false,
         ],
+        'images_public_html' => [
+            'driver' => 'local',
+            'root' => dirname(dirname(__DIR__)) . '/public_html/images',
+            'url' => env('APP_URL') . '/images',
+            'visibility' => 'public',
+        ],
 
     ],
 
@@ -75,6 +81,8 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('blog-images') => storage_path('app/public/blog-images'),
+        public_path('images') => public_path('../public_html/images')
     ],
 
 ];
