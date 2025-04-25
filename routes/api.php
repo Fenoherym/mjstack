@@ -10,4 +10,4 @@ Route::get('/user', function (Request $request) {
 
 
 Route::post('/contact', [ContactController::class, '__invoke'])->name('contact');
-
+Route::get('/projects', [\App\Http\Controllers\ProjectController::class, 'index'])->name('projects');
