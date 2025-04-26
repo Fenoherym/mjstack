@@ -74,3 +74,7 @@ Route::get('/test-upload', function () {
     Storage::disk('images_public_html')->put('test.png', $content);
     return 'Fichier sauvegardé.';
 });
+
+Route::get('/fun', function() {
+    return view('fun.index');
+});

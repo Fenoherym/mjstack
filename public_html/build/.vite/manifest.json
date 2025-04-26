@@ -1,0 +1,19 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-C8sraUdE.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CM57iF-2.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/codewritter.js": {
+    "file": "assets/codewritter-B2zPG6mI.js",
+    "name": "codewritter",
+    "src": "resources/js/codewritter.js",
+    "isEntry": true
+  }
+}
