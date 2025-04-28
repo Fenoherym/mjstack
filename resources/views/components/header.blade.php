@@ -12,6 +12,7 @@
                 <div class="flex space-x-4 md:space-x-6 text-sm md:text-base">
                     <a href="{{ route('home') }}" class="hover:text-blue-600 dark:hover:text-blue-400 {{ request()->routeIs('home') ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-gray-700 dark:text-gray-300' }}">Accueil</a>
                     <a href="{{ route('blog.index') }}" class="hover:text-blue-600 dark:hover:text-blue-400 {{ request()->routeIs('blog.*') ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-gray-700 dark:text-gray-300' }}">Blog</a>
+                    <a href="{{ route('fun') }}" class="hover:text-blue-600 dark:hover:text-blue-400 {{ request()->routeIs('fun') ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-gray-700 dark:text-gray-300' }}">Fun</a>
                     <a href="https://fenohery-folio.netlify.app/" target="_blank" class="hover:text-blue-600 dark:hover:text-blue-400 text-gray-700 dark:text-gray-300">Portfolio</a>
                 </div>
             </div>

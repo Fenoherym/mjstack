@@ -39,7 +39,7 @@
     
     <link rel="stylesheet" href="{{ asset('build/assets/app-gYAIZzpF.css') }}">
     <script type="module" src="{{ asset('build/assets/app-CM57iF-2.js') }}"></script>
-    <script type="module" src="{{ asset('build/assets/codewritter-B2zPG6mI.js') }}"></script>
+
     
 
 

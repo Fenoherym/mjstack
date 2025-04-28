@@ -15,11 +15,11 @@
                     Retournez deux cartes à la fois pour trouver les paires correspondantes. Le jeu est terminé lorsque toutes les paires sont trouvées. Faites travailler votre mémoire et amusez-vous !
                 </p>
                 
-                <div class="flex items-center gap-4 mb-4">
+                <div class="flex flex-col items-center md:flex-row gap-4 mb-4">
                     <select id="difficulty" class="bg-white dark:bg-gray-700 rounded-lg px-3 py-2 text-gray-700 dark:text-gray-200">
-                        <option value="8">Facile (8 paires - 60s)</option>
-                        <option value="12">Moyen (12 paires - 90s)</option>
-                        <option value="16">Difficile (16 paires - 2min)</option>
+                        <option value="6">Facile (6 paires - 40s)</option>
+                        <option value="10">Moyen (10 paires - 60s)</option>
+                        <option value="12">Difficile (12 paires - 90s)</option>
                     </select>
                     <button id="newGame" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Nouvelle partie</button>
                 </div>
@@ -36,8 +36,8 @@
             </div>
         </div>
         
-        <div id="memory-game" class="grid grid-cols-4 gap-2 mx-auto flex-wrap justify-center" style="width: fit-content;">
-            @for ($i = 1; $i <= 8; $i++)
+        <div id="memory-game" class="grid grid-cols-4 gap-2 mx-auto hidden" style="width: fit-content;">
+            @for ($i = 1; $i <= 6; $i++)
                 <div class="memory-card w-[60px] h-[60px]" data-card="{{ $i }}">
                     <div class="relative w-full h-full cursor-pointer transform transition-transform duration-300">
                         <div class="card-front absolute w-full h-full bg-blue-400 dark:bg-blue-600 rounded-sm shadow-sm hover:bg-blue-500 dark:hover:bg-blue-700"></div>
@@ -72,7 +72,7 @@
                 document.getElementById('timer').textContent = timeDisplay;
                 
                 const difficulty = parseInt(document.getElementById('difficulty').value);
-                const timeLimit = difficulty === 8 ? 60 : difficulty === 12 ? 90 : 120;
+                const timeLimit = difficulty === 8 ? 40 : difficulty === 12 ? 60 : 90;
                 
                 if (seconds >= timeLimit) {
                     endGame(false);
@@ -100,16 +100,9 @@
                 const difficulty = parseInt(document.getElementById('difficulty').value);
                 const gameContainer = document.getElementById('memory-game');
                 gameContainer.innerHTML = '';
-                
-                // Adjust grid columns based on difficulty
-                if (difficulty <= 8) {
-                    gameContainer.className = 'grid grid-cols-4 gap-2 mx-auto';
-                } else if (difficulty <= 12) {
-                    gameContainer.className = 'grid grid-cols-6 gap-2 mx-auto';
-                } else {
-                    gameContainer.className = 'grid grid-cols-8 gap-2 mx-auto';
-                }
-                
+
+                gameContainer.className = 'grid grid-cols-4 gap-2 mx-auto';                
+            
                 // Reset game state
                 clearInterval(timer);
                 seconds = 0;
