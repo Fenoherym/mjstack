@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Shah\Novus\Models\Post;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Comment extends Model
 {
@@ -15,7 +16,7 @@ class Comment extends Model
         'author_name',
         'author_email',
         'is_approved',
-        'article_id'
+        'novus_post_id'
     ];
 
     protected $casts = [
@@ -24,6 +25,6 @@ class Comment extends Model
 
     public function article(): BelongsTo
     {
-        return $this->belongsTo(Article::class);
+        return $this->belongsTo(Post::class);
     }
 }

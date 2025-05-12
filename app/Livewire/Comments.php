@@ -17,7 +17,7 @@ class Comments extends Component
 
     public function render()
     {
-        $comments = \App\Models\Comment::where('article_id', $this->article_id)
+        $comments = \App\Models\Comment::where('novus_post_id', $this->article_id)
             ->orderBy('created_at', 'desc')
             ->get();
             

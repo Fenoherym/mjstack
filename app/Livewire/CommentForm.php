@@ -29,7 +29,7 @@ class CommentForm extends Component
     
     public function mount($postId)
     {
-        $this->article_id = $postId;
+        $this->article_id = $postId;        
     }
     
     public function submitComment()
@@ -37,7 +37,7 @@ class CommentForm extends Component
         $validatedData = $this->validate();
         
         Comment::create([
-            'article_id' => $this->article_id,
+            'novus_post_id' => $this->article_id,
             'author_name' => $this->author_name,
             'author_email' => $this->author_email,
             'content' => $this->content,

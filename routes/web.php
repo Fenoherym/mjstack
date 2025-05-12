@@ -18,8 +18,12 @@ Route::get('/fun', function() {
 })->name('fun');
 
 Route::get('/blog/nuvos', function() {
-    // dd(Post::where('id', 1)->first());
-    return view('blog.test', ["article" => Post::where('id', 1)->first()]);
+   $post = Post::where('id', 1)
+    ->with(['media', 'tags', 'categories'])
+    ->first();  
+
+   
+    return view('blog.test', ["article" => $post]);
 }); 
 
 Route::get('/clear-cache', function() {
