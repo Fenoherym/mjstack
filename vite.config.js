@@ -12,8 +12,5 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    build: {
-        outDir: 'public_html/build', // Spécifie où les fichiers sont générés
-        manifest: true,  // Génère le fichier manifest.json
-    },
+  
 });

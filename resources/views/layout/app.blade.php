@@ -36,9 +36,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
 
 
-    
-    <link rel="stylesheet" href="{{ asset('build/assets/app-gYAIZzpF.css') }}">
-    <script type="module" src="{{ asset('build/assets/app-CM57iF-2.js') }}"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     
 

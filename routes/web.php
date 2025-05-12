@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\HomeController;
 use App\Mail\ContactMail;
-use Illuminate\Support\Facades\Route;
+use Shah\Novus\Models\Post;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/articles', [BlogController::class, 'index'])->name('blog.index');
@@ -15,6 +16,36 @@ Route::get('/articles/{article:slug}', [BlogController::class, 'show'])->name('b
 Route::get('/fun', function() {
     return view('fun.index');
 })->name('fun');
+
+Route::get('/blog/nuvos', function() {
+    // dd(Post::where('id', 1)->first());
+    return view('blog.test', ["article" => Post::where('id', 1)->first()]);
+}); 
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return 'Cache cleared!';
+});
+
+// Route::get('/run-migration', function() {
+//     $exitCode = Artisan::call('migrate', [
+//         '--force' => true, // Force l'exécution en production
+//     ]);
+
+//     // Vérifie si l'exécution a réussi ou s'il n'y a pas de migration
+//     $output = Artisan::output();
+
+//     if (strpos($output, 'Nothing to migrate') !== false) {
+//         return "Aucune migration a effectué";
+//     }
+
+//     // Si le code de sortie est 0, cela signifie que les migrations se sont bien effectuées
+//     if ($exitCode === 0) {
+//         return "Migrations exécutées avec succès";
+//     }
+
+//     return "erreur"; 
+// });
 
 // Route::get('/test-email', function () {
     

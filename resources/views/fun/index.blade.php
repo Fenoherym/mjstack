@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container pt-20 mx-auto px-4">
+    <div class="container pt-32 mx-auto px-4" style="padding-bottom: 80px;">
         <div class="max-w-2xl mx-auto mb-3">
             <h1 class="text-xl font-semibold text-center mb-2 dark:text-gray-100">Jeu de Mémoire</h1>
             
@@ -36,8 +36,8 @@
             </div>
         </div>
         
-        <div id="memory-game" class="grid grid-cols-4 gap-2 mx-auto hidden" style="width: fit-content;">
-            @for ($i = 1; $i <= 6; $i++)
+        <div id="memory-game" class="grid grid-cols-4 gap-2 mx-auto" style="width: fit-content;">
+            @for ($i = 1; $i <= 12; $i++)
                 <div class="memory-card w-[60px] h-[60px]" data-card="{{ $i }}">
                     <div class="relative w-full h-full cursor-pointer transform transition-transform duration-300">
                         <div class="card-front absolute w-full h-full bg-blue-400 dark:bg-blue-600 rounded-sm shadow-sm hover:bg-blue-500 dark:hover:bg-blue-700"></div>
@@ -50,154 +50,158 @@
             @endfor
         </div>
     </div>
+@endsection
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let timer = null;
-            let seconds = 0;
-            let moves = 0;
-            let hasFlippedCard = false;
-            let lockBoard = false;
-            let firstCard, secondCard;
-            let gameStarted = false;
-            let matchedPairs = 0;
-            let totalPairs = 0;
+@section('partial-js')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let timer = null;
+        let seconds = 0;
+        let moves = 0;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let gameStarted = false;
+        let matchedPairs = 0;
+        let totalPairs = 0;
+        
+        function updateTimer() {
+            if (!gameStarted) return;
             
-            function updateTimer() {
-                if (!gameStarted) return;
-                
-                const minutes = Math.floor(seconds / 60);
-                const remainingSeconds = seconds % 60;
-                const timeDisplay = `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-                document.getElementById('timer').textContent = timeDisplay;
-                
-                const difficulty = parseInt(document.getElementById('difficulty').value);
-                const timeLimit = difficulty === 8 ? 40 : difficulty === 12 ? 60 : 90;
-                
-                if (seconds >= timeLimit) {
-                    endGame(false);
-                    return;
-                }
-                seconds++;
-            }
-
-            function endGame(won) {
-                clearInterval(timer);
-                gameStarted = false;
-                const statusDiv = document.getElementById('gameStatus');
-                statusDiv.classList.remove('hidden');
-                
-                if (won) {
-                    statusDiv.textContent = `Bravo ! Partie gagnée en ${document.getElementById('timer').textContent}`;
-                    statusDiv.className = 'text-green-600 dark:text-green-400 font-medium';
-                } else {
-                    statusDiv.textContent = 'Temps écoulé ! Partie perdue';
-                    statusDiv.className = 'text-red-600 dark:text-red-400 font-medium';
-                }
-            }
-
-            function startGame() {
-                const difficulty = parseInt(document.getElementById('difficulty').value);
-                const gameContainer = document.getElementById('memory-game');
-                gameContainer.innerHTML = '';
-
-                gameContainer.className = 'grid grid-cols-4 gap-2 mx-auto';                
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            const timeDisplay = `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            document.getElementById('timer').textContent = timeDisplay;
             
-                // Reset game state
-                clearInterval(timer);
-                seconds = 0;
-                moves = 0;
-                matchedPairs = 0;
-                totalPairs = difficulty;
-                gameStarted = true;
-                document.getElementById('moves').textContent = '0';
-                document.getElementById('timer').textContent = '00:00';
-                document.getElementById('gameStatus').classList.add('hidden');
-                
-                // Generate unique pairs
-                const numbers = Array.from({ length: difficulty }, (_, i) => i + 1);
-                const pairs = [...numbers, ...numbers];
-                pairs.sort(() => Math.random() - 0.5);
-                
-                // Create cards
-                pairs.forEach(number => {
-                    const card = `
-                        <div class="memory-card w-[60px] h-[60px]" data-card="${number}">
-                            <div class="relative w-full h-full cursor-pointer transform transition-transform duration-300">
-                                <div class="card-front absolute w-full h-full bg-blue-400 dark:bg-blue-600 rounded-sm shadow-sm hover:bg-blue-500 dark:hover:bg-blue-700"></div>
-                                <div class="card-back absolute w-full h-full bg-white dark:bg-gray-800 rounded-sm flex items-center justify-center text-sm font-medium hidden">
-                                    ${number}
-                                </div>
+            const difficulty = parseInt(document.getElementById('difficulty').value);
+            const timeLimit = difficulty === 6 ? 40 : difficulty === 10 ? 60 : 90;
+            
+            if (seconds >= timeLimit) {
+                endGame(false);
+                return;
+            }
+            seconds++;
+        }
+
+        function endGame(won) {
+            clearInterval(timer);
+            gameStarted = false;
+            const statusDiv = document.getElementById('gameStatus');
+            statusDiv.classList.remove('hidden');
+            
+            if (won) {
+                statusDiv.textContent = `Bravo ! Partie gagnée en ${document.getElementById('timer').textContent}`;
+                statusDiv.className = 'text-green-600 dark:text-green-400 font-medium';
+            } else {
+                statusDiv.textContent = 'Temps écoulé ! Partie perdue';
+                statusDiv.className = 'text-red-600 dark:text-red-400 font-medium';
+            }
+        }
+
+        function startGame() {
+            const difficulty = parseInt(document.getElementById('difficulty').value);
+            const gameContainer = document.getElementById('memory-game');
+            gameContainer.innerHTML = '';
+
+            gameContainer.className = 'grid grid-cols-4 gap-2 mx-auto';                
+        
+            // Reset game state
+            clearInterval(timer);
+            seconds = 0;
+            moves = 0;
+            matchedPairs = 0;
+            totalPairs = difficulty;
+            gameStarted = true;
+            document.getElementById('moves').textContent = '0';
+            document.getElementById('timer').textContent = '00:00';
+            document.getElementById('gameStatus').classList.add('hidden');
+            
+            // Generate unique pairs
+            const numbers = Array.from({ length: difficulty }, (_, i) => i + 1);
+            const pairs = [...numbers, ...numbers];
+            pairs.sort(() => Math.random() - 0.5);
+            
+            // Create cards
+            pairs.forEach(number => {
+                const card = `
+                    <div class="memory-card w-[60px] h-[60px]" data-card="${number}">
+                        <div class="relative w-full h-full cursor-pointer transform transition-transform duration-300">
+                            <div class="card-front absolute w-full h-full bg-blue-400 dark:bg-blue-600 rounded-sm shadow-sm hover:bg-blue-500 dark:hover:bg-blue-700"></div>
+                            <div class="card-back absolute w-full h-full bg-white dark:bg-gray-800 rounded-sm flex items-center justify-center text-sm font-medium hidden">
+                                ${number}
                             </div>
                         </div>
-                    `;
-                    gameContainer.innerHTML += card;
-                });
-                
-                // Start timer
-                timer = setInterval(updateTimer, 1000);
-                
-                // Add event listeners
-                document.querySelectorAll('.memory-card').forEach(card => {
-                    card.addEventListener('click', flipCard);
-                });
+                    </div>
+                `;
+                gameContainer.innerHTML += card;
+            });
+            
+            // Start timer
+            timer = setInterval(updateTimer, 1000);
+            
+            // Add event listeners
+            document.querySelectorAll('.memory-card').forEach(card => {
+                card.addEventListener('click', flipCard);
+            });
+        }
+
+        function flipCard() {
+            if (!gameStarted || lockBoard || this === firstCard) return;
+
+            this.querySelector('.card-front').classList.add('hidden');
+            this.querySelector('.card-back').classList.remove('hidden');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
             }
 
-            function flipCard() {
-                if (!gameStarted || lockBoard || this === firstCard) return;
+            secondCard = this;
+            moves++;
+            document.getElementById('moves').textContent = moves;
+            checkForMatch();
+        }
 
-                this.querySelector('.card-front').classList.add('hidden');
-                this.querySelector('.card-back').classList.remove('hidden');
-
-                if (!hasFlippedCard) {
-                    hasFlippedCard = true;
-                    firstCard = this;
-                    return;
+        function checkForMatch() {
+            const isMatch = firstCard.dataset.card === secondCard.dataset.card;
+            if (isMatch) {
+                matchedPairs++;
+                disableCards();
+                if (matchedPairs === totalPairs) {
+                    endGame(true);
                 }
-
-                secondCard = this;
-                moves++;
-                document.getElementById('moves').textContent = moves;
-                checkForMatch();
+            } else {
+                unflipCards();
             }
+        }
 
-            function checkForMatch() {
-                const isMatch = firstCard.dataset.card === secondCard.dataset.card;
-                if (isMatch) {
-                    matchedPairs++;
-                    disableCards();
-                    if (matchedPairs === totalPairs) {
-                        endGame(true);
-                    }
-                } else {
-                    unflipCards();
-                }
-            }
+        function disableCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            resetBoard();
+        }
 
-            function disableCards() {
-                firstCard.removeEventListener('click', flipCard);
-                secondCard.removeEventListener('click', flipCard);
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.querySelector('.card-front').classList.remove('hidden');
+                firstCard.querySelector('.card-back').classList.add('hidden');
+                secondCard.querySelector('.card-front').classList.remove('hidden');
+                secondCard.querySelector('.card-back').classList.add('hidden');
                 resetBoard();
-            }
+            }, 1000);
+        }
 
-            function unflipCards() {
-                lockBoard = true;
-                setTimeout(() => {
-                    firstCard.querySelector('.card-front').classList.remove('hidden');
-                    firstCard.querySelector('.card-back').classList.add('hidden');
-                    secondCard.querySelector('.card-front').classList.remove('hidden');
-                    secondCard.querySelector('.card-back').classList.add('hidden');
-                    resetBoard();
-                }, 1000);
-            }
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
 
-            function resetBoard() {
-                [hasFlippedCard, lockBoard] = [false, false];
-                [firstCard, secondCard] = [null, null];
-            }
+        // Initialize game
+        document.getElementById('newGame').addEventListener('click', startGame);
+    });
+</script>
 
-            // Initialize game
-            document.getElementById('newGame').addEventListener('click', startGame);
-        });
-    </script>
 @endsection

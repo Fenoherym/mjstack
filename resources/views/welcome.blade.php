@@ -57,15 +57,15 @@
                 <article
                     class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg card-scale border border-gray-100 dark:border-gray-700">
                     @if($post->featured_image)
-                        <div class="relative h-56">
-                            <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
-                                class="w-full h-full object-cover">
-                            <div class="absolute top-4 right-4">
-                                <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">
-                                    {{ $post->published_at->format('d M Y') }}
-                                </span>
-                            </div>
-                        </div>
+                        <!--<div class="relative h-56">-->
+                        <!--    <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"-->
+                        <!--        class="w-full h-full object-cover">-->
+                        <!--    <div class="absolute top-4 right-4">-->
+                        <!--        <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">-->
+                        <!--            {{ $post->published_at->format('d M Y') }}-->
+                        <!--        </span>-->
+                        <!--    </div>-->
+                        <!--</div>-->
                     @endif
                     <div class="p-6">
                         <div class="flex items-center space-x-2 mb-4">
@@ -96,8 +96,9 @@
     </section>
 
     <!-- Latest YouTube Video -->
-    <x-video-frame url="{{ $last_video->url }}" title="Ma dernière vidéo"> </x-video-frame>
-    
+    @if(!is_null($last_video))
+        <x-video-frame url="{{ $last_video->url }}" title="Ma dernière vidéo"> </x-video-frame>
+    @endif
     <!-- Tech Stack & Tools -->
     <section class="py-16 bg-gray-50 dark:bg-gray-800/50">
         <div class="container mx-auto px-4">
