@@ -201,8 +201,7 @@
 @endsection
 
 @section('partial-js')
-<script type="module" src="{{ asset('build/assets/codewritter-B2zPG6mI.js') }}"></script>
-   
+@vite(['resources/js/codewritter.js'])
 @endsection
 
 @section('meta')

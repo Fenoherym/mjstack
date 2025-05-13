@@ -1,41 +1,22 @@
-{{-- <div class="space-y-8">
-    @foreach($comments as $comment)
-        <div class="flex gap-4 p-6 rounded-xl bg-gray-50 dark:bg-gray-700/50">
-            <div class="flex-shrink-0">
-                <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
-                    <span class="text-blue-600 dark:text-blue-300 text-lg font-bold">
-                        {{ substr($comment->author_name, 0, 1) }}
-                    </span>
+<div>
+    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Commentaires ({{ $comments->count() }})</h2>
+    <div class="space-y-6 mt-6">
+        @foreach($comments as $comment)
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+                <div class="flex items-start space-x-3">
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-medium text-gray-900 dark:text-white">{{ $comment->author_name }}</h4>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">
+                                {{ $comment->created_at->diffForHumans() }}
+                            </span>
+                        </div>
+                        <p class="mt-2 text-gray-700 dark:text-gray-300">
+                            {{ $comment->content }}
+                        </p>             
+                    </div>
                 </div>
             </div>
-            <div class="flex-grow">
-                <div class="flex items-center justify-between mb-2">
-                    <h3 class="font-semibold text-gray-900 dark:text-white">{{ $comment->author_name }}</h3>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">
-                        {{ $comment->created_at->diffForHumans() }}
-                    </span>
-                </div>
-                <p class="text-gray-600 dark:text-gray-300">{{ $comment->content }}</p>
-            </div>
-        </div>
-    @endforeach
-</div> --}}
-
-<div class="space-y-6 mt-6">
-    @foreach($comments as $comment)
-    <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-        <div class="flex items-start space-x-3">
-           
-            <div class="flex-1">
-                <div class="flex items-center justify-between">
-                    <h4 class="font-medium">{{ $comment->author_name }}</h4>
-                    <span class="text-xs text-gray-500"> {{ $comment->created_at->diffForHumans() }}</span>
-                </div>
-                <p class="mt-2 text-gray-700">
-                    {{ $comment->content }}
-                </p>             
-            </div>
-        </div>
+        @endforeach
     </div>
-    @endforeach
 </div>

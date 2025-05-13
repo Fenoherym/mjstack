@@ -19,7 +19,7 @@ Route::get('/fun', function() {
 
 Route::get('/blog/nuvos', function() {
    $post = Post::where('id', 1)
-    ->with(['media', 'tags', 'categories'])
+    ->with(['media', 'tags', 'categories', 'comments'])
     ->first();  
 
    

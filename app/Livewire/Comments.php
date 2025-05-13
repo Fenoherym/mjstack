@@ -22,7 +22,8 @@ class Comments extends Component
             ->get();
             
         return view('livewire.comments', [
-            'comments' => $comments
+            'comments' => $comments,
+            'article_id' =>  $this->article_id
         ]);
     }
 }
