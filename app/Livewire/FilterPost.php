@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\Article;
+use Livewire\Component;
+use Shah\Novus\Models\Post;
+use Livewire\WithPagination;
+
 class FilterPost extends Component
 {
     use WithPagination;
@@ -21,19 +23,13 @@ class FilterPost extends Component
         $posts = [];
         switch ($this->sortedBy) {
             case 'oldest':
-                $posts = Article::where('is_published', true) 
+                $posts = Post::where('status', 2)
                 ->orderBy('published_at', 'asc')
                 ->paginate($this->perPage);
                 ;
-                break;
-            case 'popular':
-                $posts = Article::where('is_published', true) 
-                ->withCount('views')->orderBy('views_count', 'desc')
-                ->paginate($this->perPage);
-                ;
-                break;        
+                break;              
             default:
-                $posts = Article::where('is_published', true) 
+                $posts = Post::where('status', 2)
                 ->orderBy('published_at', 'desc')
                 ->paginate($this->perPage);
                 break;

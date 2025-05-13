@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
 use App\Models\Video;
+use Shah\Novus\Models\Post;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $posts = Article::with(['tags', 'comments', 'views'])
-            ->where('is_published', true)
+        $posts = Post::with(['tags', 'comments'])
+            ->where('status', 2)
             ->latest('published_at')
             ->take(3)
             ->get();

@@ -11,7 +11,8 @@
             <div class="grid md:grid-cols-2 gap-8 items-center">
                 <div class="text-left">
                     <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-                        Code, Apprends, <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Partage</span>
+                        Code, Apprends, <span
+                            class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Partage</span>
                     </h1>
                     <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
                         Explorez le monde du développement web à travers mes articles et tutoriels.
@@ -46,30 +47,31 @@
     <section class="container mx-auto px-4 py-12">
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Derniers Articles</h2>
-            <a href="{{ route('blog.index')}}" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 flex items-center gap-2">
+            <a href="{{ route('blog.index') }}"
+                class="text-blue-600 dark:text-blue-400 hover:text-blue-700 flex items-center gap-2">
                 Voir tous les articles
                 <i class="fas fa-arrow-right"></i>
             </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @foreach($posts as $post)
+            @foreach ($posts as $post)
                 <article
                     class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg card-scale border border-gray-100 dark:border-gray-700">
-                    @if($post->featured_image)
-                        <!--<div class="relative h-56">-->
-                        <!--    <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"-->
-                        <!--        class="w-full h-full object-cover">-->
-                        <!--    <div class="absolute top-4 right-4">-->
-                        <!--        <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">-->
-                        <!--            {{ $post->published_at->format('d M Y') }}-->
-                        <!--        </span>-->
-                        <!--    </div>-->
-                        <!--</div>-->
+                    @if ($post->media->first()->path)
+                        <div class="relative h-56">
+                            <img src="{{ Storage::url($post->media->first()->path) }}" alt="{{ $post->title }}"
+                                class="w-full h-full object-cover">
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">
+                                    {{ $post->published_at->format('d M Y') }}
+                                </span>
+                            </div>
+                        </div>
                     @endif
                     <div class="p-6">
                         <div class="flex items-center space-x-2 mb-4">
-                            @foreach($post->tags as $tag)
+                            @foreach ($post->tags as $tag)
                                 <span
                                     class="text-sm px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
                                     {{ $tag->name }}
@@ -81,7 +83,7 @@
                         <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
                             <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
                                 <span><i class="far fa-comment mr-1"></i> {{ $post->comments->count() }}</span>
-                                <span><i class="far fa-eye mr-1"></i> {{ $post->getViewsCount() }}</span>
+                                {{-- <span><i class="far fa-eye mr-1"></i> {{ $post->getViewsCount() }}</span> --}}
                             </div>
                             <a href="{{ route('blog.show', $post) }}"
                                 class="inline-flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
@@ -96,41 +98,47 @@
     </section>
 
     <!-- Latest YouTube Video -->
-    @if(!is_null($last_video))
+    @if (!is_null($last_video))
         <x-video-frame url="{{ $last_video->url }}" title="Ma dernière vidéo"> </x-video-frame>
     @endif
     <!-- Tech Stack & Tools -->
     <section class="py-16 bg-gray-50 dark:bg-gray-800/50">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Technologies & Outils</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Technologies & Outils
+            </h2>
             <p class="text-center text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">
                 Voici les technologies et outils que j'utilise quotidiennement et que je recommande
             </p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
+                <div
+                    class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
                     <i class="fab fa-laravel text-5xl text-red-500 mb-4"></i>
                     <h3 class="font-semibold text-gray-900 dark:text-white">Laravel</h3>
                 </div>
-                <div class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
+                <div
+                    class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
                     <i class="fab fa-vuejs text-5xl text-green-500 mb-4"></i>
                     <h3 class="font-semibold text-gray-900 dark:text-white">Vue.js</h3>
                 </div>
-                <div class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
+                <div
+                    class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
                     <i class="fab fa-react text-5xl text-blue-400 mb-4"></i>
                     <h3 class="font-semibold text-gray-900 dark:text-white">React</h3>
                 </div>
-                <div class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
+                <div
+                    class="flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform hover:-translate-y-1">
                     <svg class="w-12 h-12 mb-4 text-sky-500" viewBox="0 0 24 24" fill="currentColor">
-                        <path fill-rule="evenodd" d="M12 6.036c-2.667 0-4.333 1.325-5 3.976 1-1.325 2.167-1.822 3.5-1.491.761.189 1.305.738 1.91 1.345 0.98.979 2.112 2.114 4.59 2.114 2.667 0 4.333-1.325 5-3.976-1 1.325-2.166 1.822-3.5 1.491-.761-.189-1.305-.738-1.91-1.345-.98-.979-2.112-2.114-4.59-2.114zM7 12.036c-2.667 0-4.333 1.325-5 3.976 1-1.326 2.167-1.822 3.5-1.491.761.189 1.305.738 1.91 1.345.98.979 2.112 2.114 4.59 2.114 2.667 0 4.333-1.325 5-3.976-1 1.325-2.166 1.822-3.5 1.491-.761-.189-1.305-.738-1.91-1.345-.98-.979-2.112-2.114-4.59-2.114z"/>
+                        <path fill-rule="evenodd"
+                            d="M12 6.036c-2.667 0-4.333 1.325-5 3.976 1-1.325 2.167-1.822 3.5-1.491.761.189 1.305.738 1.91 1.345 0.98.979 2.112 2.114 4.59 2.114 2.667 0 4.333-1.325 5-3.976-1 1.325-2.166 1.822-3.5 1.491-.761-.189-1.305-.738-1.91-1.345-.98-.979-2.112-2.114-4.59-2.114zM7 12.036c-2.667 0-4.333 1.325-5 3.976 1-1.326 2.167-1.822 3.5-1.491.761.189 1.305.738 1.91 1.345.98.979 2.112 2.114 4.59 2.114 2.667 0 4.333-1.325 5-3.976-1 1.325-2.166 1.822-3.5 1.491-.761-.189-1.305-.738-1.91-1.345-.98-.979-2.112-2.114-4.59-2.114z" />
                     </svg>
                     <h3 class="font-semibold text-gray-900 dark:text-white">Tailwind CSS</h3>
                 </div>
-            </div>                
             </div>
+        </div>
         </div>
     </section>
 
-    
+
     {{-- <section class="container mx-auto px-4 py-12">
         <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8">Catégories Populaires</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -197,15 +205,15 @@
             </div>
         </div>
     </section> --}}
-
 @endsection
 
 @section('partial-js')
-@vite(['resources/js/codewritter.js'])
+    @vite(['resources/js/codewritter.js'])
 @endsection
 
 @section('meta')
-    <meta name="description" content="MJ Stack - Blog technique et tutoriels sur le développement web, Laravel, Vue.js, React et Tailwind CSS">
+    <meta name="description"
+        content="MJ Stack - Blog technique et tutoriels sur le développement web, Laravel, Vue.js, React et Tailwind CSS">
     <meta name="author" content="MJ Stack">
     <meta name="keywords" content="Laravel, Vue.js, React, Tailwind CSS, développement web, tutoriels">
 @endsection

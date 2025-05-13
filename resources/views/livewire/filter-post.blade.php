@@ -6,8 +6,7 @@
                     <span class="text-gray-700 dark:text-gray-300">Trier par :</span>
                     <select wire:model.live="sortedBy" class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800">
                         <option value="newest">Plus récent</option>
-                        <option value="oldest">Plus ancien</option>
-                        <option value="popular">Plus populaire</option>
+                        <option value="oldest">Plus ancien</option>                      
                     </select>
                 </div>
                 <div class="flex items-center gap-2">
@@ -19,7 +18,7 @@
                         <option value="12" @if($perPage === 12) selected @endif>12</option>
                         <option value="15" @if($perPage === 15) selected @endif>15</option>
                        
-                    </select>
+                    </select> 
                 </div>
             </div>
         </div>
@@ -55,7 +54,7 @@
                         <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
                             <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
                                 <span><i class="far fa-comment mr-1"></i> {{ $post->comments->count() }}</span>
-                                <span><i class="far fa-eye mr-1"></i> {{ $post->views->count() }}</span>
+                                {{-- <span><i class="far fa-eye mr-1"></i> {{ $post->views->count() }}</span> --}}
                             </div>
                             <a href="{{ route('blog.show', $post) }}" 
                                 class="inline-flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">

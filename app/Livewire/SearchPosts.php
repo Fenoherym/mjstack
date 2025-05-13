@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Article;
+use Shah\Novus\Models\Post;
 use Livewire\WithPagination;
 
 class SearchPosts extends Component
@@ -25,9 +25,20 @@ class SearchPosts extends Component
         $articles = [];
         
         if (strlen($this->search) > 2) {
-            $articles = Article::search($this->search)
+                $articles = Post::where('status', 2)
+                ->where(function ($query) {
+                    $query->where('title', 'like', "%{$this->search}%")
+                        ->orWhere('content', 'like', "%{$this->search}%")
+                        ->orWhereHas('tags', function ($q) {
+                            $q->where('name', 'like', "%{$this->search}%");
+                        })
+                        ->orWhereHas('categories', function ($q) {
+                            $q->where('name', 'like', "%{$this->search}%");
+                        });
+                })
                 ->take(5)
                 ->get();
+
         }
 
         return view('livewire.search-posts', [
