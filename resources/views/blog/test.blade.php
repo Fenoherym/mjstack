@@ -46,7 +46,24 @@
                 </div>
             </div>
         </header>
-        <main class="mb-12 dark:text-gray-200">
+        @if ($article->video)
+            <div class="mb-8">
+                <x-video-frame url="{{ $article->video->url }}" title="{{ $article->video->title  }}" class="rounded-2xl overflow-hidden shadow-lg"> </x-video-frame>
+            </div>
+        @endif
+        <main class="mb-12 dark:text-gray-200 prose dark:prose-invert" x-data x-init="
+        document.querySelectorAll('.prose img').forEach(img => {
+            img.classList.add('mx-auto', 'rounded-2xl', 'shadow-xl', 'transition-all', 'duration-300', 'hover:shadow-2xl', 'hover:scale-[1.02]');
+            img.style.maxWidth = '900px';
+            img.style.width = '100%';
+            img.style.height = 'auto';
+            img.style.display = 'block';
+            img.removeAttribute('width');
+            img.removeAttribute('height');
+            img.style.marginTop = '60px';
+            img.style.marginBottom = '60px';
+        })
+    ">
             {!! $article->content_html !!}
         </main>
         <section class="mb-12 border-t border-gray-200 dark:border-gray-700 pt-8">
